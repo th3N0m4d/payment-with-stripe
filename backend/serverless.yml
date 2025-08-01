@@ -1,0 +1,18 @@
+service: payment-with-stripe
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: handler.checkout
+    events:
+      - httpApi:
+          path: create-payment-intent
+          method: post
